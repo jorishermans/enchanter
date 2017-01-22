@@ -17,5 +17,5 @@ app.generate();
 ## Installation
 
 ```bash
-$ npm install express
+$ npm install enchanter
 ```
