@@ -13,12 +13,12 @@ app.set('view engine', 'pug');
 app.set('view module', require('pug'));
 
 // render the homepage 
-app.page('/', function(ctx) {
+app.get('/', function(ctx) {
     ctx.render('template', {title: "home", pagetitle:"start", message: "Welcome to the homepage!"});
 });
 
 // render page two 
-app.page('/two', function(ctx) {
+app.get('/two', function(ctx) {
     ctx.render('template', {title: "page two", pagetitle:"Two", message: "Welcome to the second page of this site!"});
 });
 

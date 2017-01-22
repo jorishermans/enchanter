@@ -18,9 +18,9 @@ class Application {
     init() {
         if (!this.engine) {
             var options:any = {
-                defaultEngineName: this.get('view engine'),
-                defaultEngine: this.get('view module'),
-                root: this.get('views'),
+                defaultEngineName: this._get('view engine'),
+                defaultEngine: this._get('view module'),
+                root: this._get('views'),
                 engines: []
             };
             this.engine = new Engine(options);
@@ -63,7 +63,7 @@ class Application {
      * @return {Server} for chaining
      * @public
      */
-     get(setting: string) {
+     _get(setting: string) {
         return this.set(setting);
      }
 
@@ -85,6 +85,25 @@ class Application {
         return this;
      }
 
+     /**
+     * Adding a page to the application
+     *
+     *    app.all('/', (context) => {
+     *    });
+     *
+     * Mounted servers inherit their parent server's settings.
+     *
+     * @param {String} path
+     * @param {*} [fn] function to bind
+     * @return {Server} for chaining
+     * @public
+     */
+     all = (path: string, fn: Function) => this.page(path, fn);
+     get = (path: string, fn: Function) => this.page(path, fn);
+     post = (path: string, fn: Function) => this.page(path, fn);
+     put = (path: string, fn: Function) => this.page(path, fn);
+     del = (path: string, fn: Function) => this.page(path, fn);
+     
     /**
      * Generate all the pages that are registered in this application
      * 
@@ -96,10 +115,10 @@ class Application {
 
         // iterate over all the pages that are registered
         // views directory with the templates
-        var views = this.get('views');
+        var views = this._get('views');
         if (!views) views = __dirname + "/views";
         // output directory
-        var output = this.get('output');
+        var output = this._get('output');
         if (!output) output = __dirname + "/out";
 
         console.log(Object.keys(this.pages));
@@ -111,7 +130,7 @@ class Application {
             // do something with obj
             if (fnRender) {
                 var context = new Context(this.engine, `${output.toString()}${key}`);
-                fnRender.call(context, context); 
+                fnRender.call(this, context); 
                 console.log("generate files "+ key);
             }
             
