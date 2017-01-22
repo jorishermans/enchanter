@@ -1,0 +1,15 @@
+[ignore]
+<PROJECT_ROOT>/coverage/.*
+<PROJECT_ROOT>/dist/.*
+
+[include]
+
+[libs]
+
+[options]
+suppress_comment= \\(.\\|\n\\)*\\$FlowFixMe
+unsafe.enable_getters_and_setters=true
+esproposal.class_instance_fields=enable
+
+[version]
+0.29.0

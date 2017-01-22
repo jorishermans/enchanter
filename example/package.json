@@ -1,0 +1,19 @@
+{
+  "name": "enchanter_example",
+  "version": "1.0.0",
+  "description": "this is an example to show the power of enchanter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "example",
+    "sgt",
+    "express"
+  ],
+  "author": "Joris Hermans",
+  "license": "ISC",
+  "dependencies": {
+    "pug": "^2.0.0-beta6"
+  }
+}

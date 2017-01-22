@@ -1,0 +1,72 @@
+{
+  "name": "enchanter",
+  "version": "1.0.0",
+  "description": "A new way of generating your site with routines",
+  "engineStrict": true,
+  "engines": {
+    "node": ">= 6.2"
+  },
+  "main": "dist/src/application.js",
+  "scripts": {
+    "clean": "rm -rf coverage dist tmp",
+    "lint": "eslint .",
+    "postlint": "npm run typecheck",
+    "typecheck": "flow check",
+    "pretest": "npm run lint",
+    "test": "npm run test-only",
+    "test-only": "jest --coverage",
+    "test:watch": "jest --watch",
+    "build": "babel src/**/*.js -d dist",
+    "build:watch": "babel --watch src/**/*.js -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/jorishermans/enchanter.git"
+  },
+  "keywords": [
+    "website",
+    "ssg",
+    "templates",
+    "markdown",
+    "jekyll",
+    "generator",
+    "blog",
+    "tool"
+  ],
+  "author": "Joris Hermans",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jorishermans/enchanter/issues"
+  },
+  "homepage": "https://github.com/jorishermans/enchanter#readme",
+  "jest": {
+    "testEnvironment": "node",
+    "moduleFileExtensions": [
+      "js"
+    ],
+    "coverageDirectory": "coverage",
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ]
+  },
+  "dependencies": {
+    "babel-runtime": "~6.20.0"
+  },
+  "devDependencies": {
+    "babel-cli": "~6.18.0",
+    "babel-core": "~6.21.0",
+    "babel-eslint": "~7.1.1",
+    "babel-jest": "~18.0.0",
+    "babel-plugin-transform-async-to-generator": "~6.16.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "~6.18.0",
+    "babel-plugin-transform-flow-strip-types": "~6.21.0",
+    "babel-plugin-transform-runtime": "~6.15.0",
+    "babel-preset-stage-3": "~6.17.0",
+    "eslint": "~3.13.1",
+    "eslint-config-airbnb-base": "~11.0.1",
+    "eslint-plugin-flowtype": "~2.29.2",
+    "eslint-plugin-import": "~2.2.0",
+    "flow-bin": "^0.37.4",
+    "jest": "~18.1.0"
+  }
+}
