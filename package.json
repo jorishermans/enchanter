@@ -1,6 +1,6 @@
 {
   "name": "enchanter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A new way of generating your site with familiar api's",
   "engineStrict": true,
   "engines": {
