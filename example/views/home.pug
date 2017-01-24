@@ -1,0 +1,10 @@
+html
+    head
+        title= title
+    body
+        h1=pagetitle
+        div= content
+        div
+        each item in links
+            a(href= item.url) 
+                =item.name
