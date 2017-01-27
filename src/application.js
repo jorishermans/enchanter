@@ -108,8 +108,23 @@ class Application {
      * Generate all the pages that are registered in this application
      * 
      */
-    generate() {
+    generateAll() {
         console.log("generate files");
+
+        // iterate over all the pages and execute them
+        for (let key of this.pages.keys()) {
+            this.generate(key);
+        };
+    }
+
+    /**
+     * generate a specific page, with its according route name
+     *
+     * @param {String} page, the route name that is been registered in the map
+     * @public
+     */
+    generate(page: string) {
+        console.log(`start generate ${page}`);
         // first initialize objects
         this.init();
 
@@ -121,22 +136,13 @@ class Application {
         var output = this._get('output');
         if (!output) output = __dirname + "/out";
 
-        console.log(Object.keys(this.pages));
-        console.log(this.pages.keys());
-        // iterate over all the pages and execute them
-        for (let key of this.pages.keys()) {
-            console.log(key);
-            let fnRender = this.pages.get(key);
-            // do something with obj
-            if (fnRender) {
-                var context = new Context(this.engine, `${output.toString()}${key}`);
-                fnRender.call(this, context); 
-                console.log("generate files "+ key);
-            }
-            
-            // render file
-            // fs.readFile
-        };
+        let fnRender = this.pages.get(page);
+        // do something with obj
+        if (fnRender) {
+            var context = new Context(this.engine, `${output.toString()}${page}`);
+            fnRender.call(this, context); 
+            console.log(`generate files ${page}`);
+        }
     }
 }
 

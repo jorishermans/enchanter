@@ -11,7 +11,15 @@ app.page('/', function(ctx) {
     ctx.render('template', {title: "home", message: "body"});
 });
 
-app.generate();
+app.generateAll();
+```
+
+You can also generate a specific path with the following code:
+
+```js
+app.generate('/');
+
+app.generate('/about');
 ```
 
 ## Installation

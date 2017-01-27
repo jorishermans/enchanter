@@ -41,4 +41,4 @@ app.get('/two', function(ctx) {
     ctx.render('template', {title: "page two", pagetitle:"Two", site: config, message: "Welcome to the second page of this site!"});
 });
 
-app.generate();
+app.generateAll();
