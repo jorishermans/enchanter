@@ -1,14 +1,15 @@
 ## Enchanter
 
-Enchanter is a minimalistic site generator, build up your site on an easy way
+Enchanter is a minimalistic site generator, build up your site on an easy way.
+Following a part of the api of express.js.
 
 ```js
-var enchanter = require('express')
-var app = enchanter()
+var enchanter = require('enchanter');
+var app = enchanter();
 
-app.page('/', function(ctx) {
+app.page('/', function(request, response) {
     // do some mongodb queries :)
-    ctx.render('template', {title: "home", message: "body"});
+    response.render('template', {title: "home", message: "body"});
 });
 
 app.generateAll();

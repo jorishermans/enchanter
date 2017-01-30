@@ -1,18 +1,21 @@
 /** @flow */
 import * as fs from 'fs';
 import {Engine} from './engine';
-import {Context} from './context';
+import {Response} from './response';
+import {Request} from './request';
+import {PathLayer} from './pathlayer';
+
 /** Application class, the barebone of enchanter */
 class Application {
     
     settings: Map<string, any>;
-    pages: Map<string, Function>;
+    pages: PathLayer[];
     engines: any;
     engine: Engine;
 
     constructor() {
         this.settings = new Map();
-        this.pages = new Map();
+        this.pages = [];
     }
 
     init() {
@@ -81,7 +84,7 @@ class Application {
      * @public
      */
      page(path: string, fn: Function) {
-        this.pages.set(path, fn);
+        this.pages.push(new PathLayer(path, {}, fn));
         return this;
      }
 
@@ -112,8 +115,8 @@ class Application {
         console.log("generate files");
 
         // iterate over all the pages and execute them
-        for (let key of this.pages.keys()) {
-            this.generate(key);
+        for (let layer: PathLayer of this.pages) {
+             this.generate(layer.route);
         };
     }
 
@@ -136,13 +139,23 @@ class Application {
         var output = this._get('output');
         if (!output) output = __dirname + "/out";
 
-        let fnRender = this.pages.get(page);
+        let pathLayer = this.matchOnPage(page);
         // do something with obj
-        if (fnRender) {
-            var context = new Context(this.engine, `${output.toString()}${page}`);
-            fnRender.call(this, context); 
+        if (pathLayer != null) {
+            var response = new Response(this.engine, `${output.toString()}${page}`);
+            var request = new Request(page, pathLayer.params, pathLayer, this);
+            pathLayer.handle.call(this, request, response); 
             console.log(`generate files ${page}`);
         }
+    }
+
+    matchOnPage(page: string) {
+        for (let layer: PathLayer of this.pages) {
+            if (layer.match(page)) {
+                return layer;
+            }
+        }
+        return null;
     }
 }
 

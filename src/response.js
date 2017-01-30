@@ -4,11 +4,11 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 /**
- * With this class we have a context object that can be passed to our object when generating a file.
+ * With this class we have a response object that can be passed to our object when generating a file.
  * 
  * In this class we will write our file.
  */
-export class Context {
+export class Response {
 
     engine: Engine;
     output: string;
