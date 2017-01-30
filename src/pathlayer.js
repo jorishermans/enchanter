@@ -27,6 +27,14 @@ export class PathLayer {
     }
   }
 
+  /**
+   * Check if this route matches `path`, if so
+   * populate `.params`.
+   *
+   * @param {String} path
+   * @return {Boolean}
+   * @api private
+  */
   match(path: string) {
     if (path == null) {
         // no path, nothing matches
@@ -69,6 +77,13 @@ export class PathLayer {
     return true;
   }
 
+ /**
+  * Decode param value.
+  *
+  * @param {string} val
+  * @return {string}
+  * @private
+  */
   decode_param(val: string) {
     if (typeof val !== 'string' || val.length === 0) {
         return val;

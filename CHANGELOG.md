@@ -1,3 +1,8 @@
+## 1.2.0
+
+Add the class request to this library.
+Also adding the possibility to work with path variables.
+
 ## 1.1.0
 
 Add the methods generate and generateAll into the application class.
