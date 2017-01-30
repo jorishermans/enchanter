@@ -20,7 +20,6 @@ export class PathLayer {
     this.params = undefined;
     this.path = '';
     this.route = path;
-    console.log(ptr);
     this.regexp = ptr.default(path, this.keys = [], opts);
 
     if (path === '/' && opts.end === false) {

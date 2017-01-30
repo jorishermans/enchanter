@@ -1,5 +1,10 @@
 /** @flow */
 import {PathLayer} from './pathlayer';
+/**
+ * With this class we have a request object that can be passed to our object when generating a file.
+ * 
+ * Most of the properties of the express request object are been represented here, if not please do a Pull Request
+ */
 export class Request {
 
     params: any;

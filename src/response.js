@@ -26,7 +26,6 @@ export class Response {
 
         // search for real file output ...
         // create file on the right place ...
-        console.log(this.output);
         this.wstream = fs.createWriteStream(this.output);
     }
 
@@ -38,14 +37,12 @@ export class Response {
      * @public
      */
     render(templateName : string, model : any) {
-        console.log("going to render " + templateName + " with " + model);
+        console.log(`going to render ${templateName} with ${model}`);
         this.engine.use(templateName, model, (err, rendered) => {
             if (err) console.warn("Could not render properly", err);
             // get content and write it to the correct output folder
             this.wstream.write(rendered);
             this.wstream.end();
-
-            console.log("" + rendered);
         });
     }
 
