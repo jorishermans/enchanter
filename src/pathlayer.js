@@ -1,5 +1,5 @@
 /** @flow */
-import {pathRegexp} from 'path-to-regexp';
+import * as ptr from 'path-to-regexp';
 
 var hasOwnProperty = Object.prototype.hasOwnProperty;
 
@@ -20,7 +20,8 @@ export class PathLayer {
     this.params = undefined;
     this.path = '';
     this.route = path;
-    this.regexp = pathRegexp(path, this.keys = [], opts);
+    console.log(ptr);
+    this.regexp = ptr.default(path, this.keys = [], opts);
 
     if (path === '/' && opts.end === false) {
         this.regexp.fast_slash = true;
