@@ -37,7 +37,7 @@ export class Response {
      * @public
      */
     render(templateName : string, model : any) {
-        console.log(`going to render ${templateName} with ${model}`);
+        console.log(`going to render ${templateName} with ${JSON.stringify(model)}`);
         this.engine.use(templateName, model, (err, rendered) => {
             if (err) console.warn("Could not render properly", err);
             // get content and write it to the correct output folder
