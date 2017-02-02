@@ -1,13 +1,10 @@
-const Enchanter = require('..');
+const enchanter = require('..');
 
 const pug = require('pug');
 const yaml = require('js-yaml');
 const fs = require('fs');
 
-console.log(pug);
-console.log(Enchanter);
-
-var app = new Enchanter();
+var app = enchanter();
 
 app.set('views', './views');
 app.set('output', './output');
