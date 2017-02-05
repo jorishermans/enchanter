@@ -28,8 +28,21 @@ app.get('/', function(req, res) {
         for (var file of files) {
             file = file.replace('.md', '')
             links.push({url: '/article/' + file, name: file.replace(new RegExp('-', 'g'), " ")});
+
+            if (app.generate) app.generate(`/article/${file}`);
         }
         res.render('home', {title: "home", pagetitle:"start", links: links, site: config, message: "Welcome to the homepage!"});
+    });
+});
+
+// render articles
+app.get('/article/:page', function(req, res) {
+    let page = req.params.page;
+    let title = page.replace(new RegExp('-', 'g'), " ");
+    fs.readFile( `./data/${page}.md`, 'utf-8', (err, result) => {
+        if (err) res.write('no article found!');
+
+        res.render('template', {title: "Article - " + title, pagetitle:title, site: config, message: result});
     });
 });
 
@@ -38,4 +51,4 @@ app.get('/two', function(req, res) {
     res.render('template', {title: "page two", pagetitle:"Two", site: config, message: "Welcome to the second page of this site!"});
 });
 
-app.generateAll();
+app.generate('/');

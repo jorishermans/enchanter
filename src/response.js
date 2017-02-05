@@ -26,7 +26,28 @@ export class Response {
 
         // search for real file output ...
         // create file on the right place ...
+        console.log(this.output);
+        this.createFoldersWhenNotExist();
         this.wstream = fs.createWriteStream(this.output);
+    }
+
+    /**
+     * create output folder when folder not exist
+     *
+     * @public
+     */
+    createFoldersWhenNotExist() {
+        let allDirs = this.output.split('/'), dir_builder = '';
+        for (let i = 0; i<allDirs.length-1;i++) {
+            let dir = allDirs[i];
+            dir_builder += dir; 
+            if (dir !== '.') {
+                if (!fs.existsSync(dir_builder)) {
+                    fs.mkdirSync(dir_builder);
+                }
+            }
+            dir_builder += '/'; 
+        }
     }
 
     /**
