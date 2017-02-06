@@ -1,10 +1,12 @@
 const enchanter = require('..');
+const express = require('express');
 
 const pug = require('pug');
 const yaml = require('js-yaml');
+const marked = require('marked');
 const fs = require('fs');
 
-var app = enchanter();
+var app = enchanter(express);
 
 app.set('views', './views');
 app.set('output', './output');
@@ -42,7 +44,7 @@ app.get('/article/:page', function(req, res) {
     fs.readFile( `./data/${page}.md`, 'utf-8', (err, result) => {
         if (err) res.write('no article found!');
 
-        res.render('template', {title: "Article - " + title, pagetitle:title, site: config, message: result});
+        res.render('template', {title: "Article - " + title, pagetitle:title, site: config, content: marked(result)});
     });
 });
 
@@ -51,4 +53,7 @@ app.get('/two', function(req, res) {
     res.render('template', {title: "page two", pagetitle:"Two", site: config, message: "Welcome to the second page of this site!"});
 });
 
-app.generate('/');
+if (app.generate) 
+    app.generate('/');
+else 
+    app.listen(8080);

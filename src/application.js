@@ -160,8 +160,8 @@ class Application {
 }
 
 module.exports = function(express: any) {
-    if (process.argv[2] === '--dynamic' || process.argv[2] === '-d') {
-        return express;
+    if ((process.argv[2] === '--dynamic' || process.argv[2] === '-d') && express !== undefined) {
+        return express();
     } else {
         return new Application();
     }

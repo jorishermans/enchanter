@@ -28,3 +28,20 @@ app.generate('/about');
 ```bash
 $ npm install enchanter
 ```
+
+## Use express
+
+Generate a site with express as parameter. 
+
+```js
+var enchanter = require('enchanter');
+var express = require(express);
+
+var app = enchanter(express);
+```
+When you start your application with 
+```
+node index -d
+```
+It will start the application with express. 
+This should be easy while your are developing your application or you want a dynamic and a static generation part.
