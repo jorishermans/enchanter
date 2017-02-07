@@ -149,6 +149,14 @@ class Application {
         }
     }
 
+    /**
+     * Adding a shortcut to the generate function, it generates a specific page.
+     *
+     * @param {String} page, the route name that is been registered in the map
+     * @public
+     */
+    gen = (page: string) => this.generate(page);
+
     matchOnPage(page: string) {
         for (let layer: PathLayer of this.pages) {
             if (layer.match(page)) {
