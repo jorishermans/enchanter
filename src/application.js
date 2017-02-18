@@ -4,9 +4,10 @@ import {Engine} from './engine';
 import {Response} from './response';
 import {Request} from './request';
 import {PathLayer} from './pathlayer';
+import {EventEmitter} from 'events';
 
 /** Application class, the barebone of enchanter */
-class Application {
+class Application extends EventEmitter {
     
     settings: Map<string, any>;
     pages: PathLayer[];
@@ -118,6 +119,7 @@ class Application {
         for (let layer: PathLayer of this.pages) {
              this.generate(layer.route);
         };
+        this.emit('all');
     }
 
     /**
@@ -147,6 +149,7 @@ class Application {
             pathLayer.handle.call(this, request, response); 
             console.log(`generate files ${page}`);
         }
+        this.emit('end');
     }
 
     /**
