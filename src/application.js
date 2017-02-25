@@ -13,8 +13,10 @@ class Application extends EventEmitter {
     pages: PathLayer[];
     engines: any;
     engine: Engine;
+    generating: boolean = false;
 
     constructor() {
+        super();
         this.settings = new Map();
         this.pages = [];
     }
@@ -123,12 +125,49 @@ class Application extends EventEmitter {
     }
 
     /**
+     * is the same as in express, to capture middleware ... 
+     * for now we try to capture the static middleware of express
+     *
+     * @param {Function} fn, the one that we need to take under the loop
+     * @public
+     */
+    use(fn: Function) {
+        this.use('/', fn);
+    }
+
+    /**
+     * is the same as in express, to capture middleware ... 
+     * for now we try to capture the static middleware of express
+     *
+     * @param {Function} fn, the one that we need to take under the loop
+     * @param {string} path, the path of the string in question ...
+     * @public
+     */
+    use(path: string, fn: Function) {
+        console.log(fn.name);
+        if (fn.name === 'serveStatic') {
+            console.log(Object.keys(fn), fn());
+            /* var handler = {
+                apply: function (receiver, ...args) {
+                    console.log("!!!!!!! ", JSON.stringify(args));
+                    return "args";
+                }
+            };
+
+            var p = new Proxy(fn, handler);
+            p(); */
+        }
+    }
+
+    /**
      * generate a specific page, with its according route name
      *
      * @param {String} page, the route name that is been registered in the map
      * @public
      */
     generate(page: string) {
+        let ending = false;
+        if (!this.generating) { ending = true; this.generating = true; }
         console.log(`start generate ${page}`);
         // first initialize objects
         this.init();
@@ -149,7 +188,10 @@ class Application extends EventEmitter {
             pathLayer.handle.call(this, request, response); 
             console.log(`generate files ${page}`);
         }
-        this.emit('end');
+        if (ending) {
+            this.generating = false;
+            this.emit('after', page);
+        } 
     }
 
     /**
@@ -174,6 +216,16 @@ module.exports = function(express: any) {
     if ((process.argv[2] === '--dynamic' || process.argv[2] === '-d') && express !== undefined) {
         return express();
     } else {
+        if (express !== undefined && express.static !== undefined) {
+            express.static = serveStatic;
+        } 
         return new Application();
     }
 };
+
+function serveStatic(path: string) {
+    console.log('we execute static with ' + path);
+    return function(response, request, next) {
+
+    }
+}

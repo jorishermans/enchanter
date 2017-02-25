@@ -21,6 +21,8 @@ try {
     console.log(e);
 }
 
+app.use('/static', express.static('public'));
+
 // render the homepage 
 app.get('/', function(req, res) {
     fs.readdir( './data', (err, files) => {
@@ -57,3 +59,7 @@ if (app.generate)
     app.generate('/');
 else 
     app.listen(8080);
+
+app.on('after', (page) => {
+    console.log('end generating ...');
+});

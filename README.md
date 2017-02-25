@@ -46,6 +46,16 @@ node index -d
 It will start the application with express. 
 This should be easy while your are developing your application or you want a dynamic and a static generation part.
 
+## Events
+
+after - happens at the end of a generate phase.
+
+```js
+app.on('after', (page) => {
+    console.log('end generating ...');
+});
+```
+
 ## Issues
 
 Please fill an issue when a part of the express api is not covered for you use case!

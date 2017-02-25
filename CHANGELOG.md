@@ -1,3 +1,9 @@
+## 1.3.1
+
+Adding the event emitter to the application class.
+
+Start with adding the 'after' event.
+
 ## 1.3.0
 
 * Generate a site with express as parameter. 
