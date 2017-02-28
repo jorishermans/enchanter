@@ -15,7 +15,7 @@ export class Request {
     query: any = {};
     route: PathLayer;
 
-    constructor(path: any, params: any, route: PathLayer, app: any) {
+    constructor(path: any, params: any, route?: PathLayer, app: any) {
         this.params = params;
         this.app = app;
         this.originalUrl = path;

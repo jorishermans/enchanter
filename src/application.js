@@ -5,6 +5,7 @@ import {Response} from './response';
 import {Request} from './request';
 import {PathLayer} from './pathlayer';
 import {EventEmitter} from 'events';
+import {ncp} from 'ncp';
 
 /** Application class, the barebone of enchanter */
 class Application extends EventEmitter {
@@ -144,18 +145,22 @@ class Application extends EventEmitter {
      * @public
      */
     use(path: string, fn: Function) {
+        console.log(fn);
+        console.log('live');
         console.log(fn.name);
         if (fn.name === 'serveStatic') {
-            console.log(Object.keys(fn), fn());
-            /* var handler = {
-                apply: function (receiver, ...args) {
-                    console.log("!!!!!!! ", JSON.stringify(args));
-                    return "args";
-                }
-            };
+            // output directory
+            console.log('serve static');
 
-            var p = new Proxy(fn, handler);
-            p(); */
+            var output = this._get('output');
+            if (!output) output = __dirname + "/out";
+            if (!path.startsWith('/')) path = '/' + path;
+            if (!path.endsWith('/')) path = path + '/';
+            
+            var response = new Response(this.engine, `${output.toString()}${path}`, true);
+            var request = new Request(path, {}, undefined, this);
+            
+            fn(request, response);
         }
     }
 
@@ -225,7 +230,12 @@ module.exports = function(express: any) {
 
 function serveStatic(path: string) {
     console.log('we execute static with ' + path);
-    return function(response, request, next) {
-
+    var serveStatic = function(request, response, next) {
+        console.log('copy: ', path, response.output);
+        ncp(path, response.output, function (err) {
+            if (err) return console.error(err)
+            console.log("success!");
+        });
     }
+    return serveStatic;
 }

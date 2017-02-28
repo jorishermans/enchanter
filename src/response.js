@@ -14,15 +14,15 @@ export class Response {
     output: string;
     wstream: fs.WriteStream;
 
-    constructor(engine: Engine, output: string) {
+    constructor(engine: Engine, output: string, folder: boolean = false) {
         this.engine = engine;
         this.output = output;
 
         // output that needs to be rendered
-        if (output.endsWith('/')) this.output += 'index';
+        if (output.endsWith('/') || !folder) this.output += 'index';
         if (!output.startsWith('./') && output.startsWith('/')) this.output = '.' + this.output;
         if (!output.startsWith('./') && !output.startsWith('/')) this.output = './' + this.output;
-        this.output += '.html';
+        if (!output.endsWith('/') || folder) this.output += '.html';
 
         // search for real file output ...
         // create file on the right place ...
