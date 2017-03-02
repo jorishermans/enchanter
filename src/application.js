@@ -157,9 +157,10 @@ class Application extends EventEmitter {
             if (!path.startsWith('/')) path = '/' + path;
             if (!path.endsWith('/')) path = path + '/';
             
-            var response = new Response(this.engine, `${output.toString()}${path}`, true);
+            // var response = new Response(this.engine, `${output.toString()}${path}`, true);
+            var response = { output: `${output.toString()}${path}/` };
             var request = new Request(path, {}, undefined, this);
-            
+
             fn(request, response);
         }
     }
@@ -231,8 +232,9 @@ module.exports = function(express: any) {
 function serveStatic(path: string) {
     console.log('we execute static with ' + path);
     var serveStatic = function(request, response, next) {
-        console.log('copy: ', path, response.output);
-        ncp(path, response.output, function (err) {
+        console.log('copy: !', path, response.output);
+        ncp.limit = 16;
+        ncp('./' + path, response.output, function (err) {
             if (err) return console.error(err)
             console.log("success!");
         });

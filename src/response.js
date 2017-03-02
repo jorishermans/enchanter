@@ -19,11 +19,12 @@ export class Response {
         this.output = output;
 
         // output that needs to be rendered
-        if (output.endsWith('/') || !folder) this.output += 'index';
-        if (!output.startsWith('./') && output.startsWith('/')) this.output = '.' + this.output;
-        if (!output.startsWith('./') && !output.startsWith('/')) this.output = './' + this.output;
-        if (!output.endsWith('/') || folder) this.output += '.html';
-
+        if (this.output.endsWith('/') && !folder) this.output += 'index';
+        if (!this.output.startsWith('./') && this.output.startsWith('/')) this.output = '.' + this.output;
+        if (!this.output.startsWith('./') && !this.output.startsWith('/')) this.output = './' + this.output;
+        if (!this.output.endsWith('/') && !folder) this.output += '.html';
+        if (!this.output.endsWith('/') && folder) this.output += '/';
+        
         // search for real file output ...
         // create file on the right place ...
         console.log(this.output);

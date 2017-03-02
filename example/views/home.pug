@@ -1,10 +1,14 @@
 html
     head
         title= title
+        link(rel='stylesheet', href='/static/css/pure.css')
+        link(rel='stylesheet', href='/static/css/style.css')
     body
         h1=pagetitle
-        div= content
-        div
-        each item in links
-            a(href= item.url) 
-                =item.name
+        div(class='pure-g')
+            div(class='pure-u')
+                div= content
+                div
+                    each item in links
+                        a(href= item.url) 
+                            =item.name
