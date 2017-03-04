@@ -157,8 +157,7 @@ class Application extends EventEmitter {
             if (!path.startsWith('/')) path = '/' + path;
             if (!path.endsWith('/')) path = path + '/';
             
-            // var response = new Response(this.engine, `${output.toString()}${path}`, true);
-            var response = { output: `${output.toString()}${path}/` };
+            var response = new Response(this.engine, `${output.toString()}${path}`, true);
             var request = new Request(path, {}, undefined, this);
 
             fn(request, response);

@@ -1,8 +1,8 @@
 ## 1.3.1
 
 Adding the event emitter to the application class.
-
 Start with adding the 'after' event.
+Add support for serveStatic, so we can copy a static folder to another folder.
 
 ## 1.3.0
 

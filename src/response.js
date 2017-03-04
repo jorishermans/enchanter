@@ -28,8 +28,10 @@ export class Response {
         // search for real file output ...
         // create file on the right place ...
         console.log(this.output);
-        this.createFoldersWhenNotExist();
-        this.wstream = fs.createWriteStream(this.output);
+        if (!folder) {
+            this.createFoldersWhenNotExist();
+            this.wstream = fs.createWriteStream(this.output);
+        } 
     }
 
     /**

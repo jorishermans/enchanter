@@ -61,5 +61,5 @@ else
     app.listen(8080);
 
 app.on('after', (page) => {
-    console.log('end generating ...');
+    console.log('end of a cycle ...');
 });
