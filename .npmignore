@@ -1,0 +1,27 @@
+# Logs
+*.log
+npm-debug.log*
+yarn-error.log
+
+# Dependencies
+node_modules/
+
+# Coverage
+coverage/
+
+# VS Code
+.vscode
+jsconfig.json
+.editorconfig
+.eslintignore
+.eslintrc
+
+# tests
+__tests__/
+
+# example
+example/
+
+# Misc
+.DS_Store
+tmp/
